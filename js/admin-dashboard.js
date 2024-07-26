@@ -1,4 +1,4 @@
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUqtlAHMs9F_J3noFJdD-HY1mePIGEvSBKqPeQSnM74ce5WU-ccg2ZVSXHN8Bq2rSRjg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTm_NI5Z0YPF0r7XiT7tXcO85bugwhKjabY0aibP-ghd-BKGRltgAAR3iQBseAWO0ZWw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!isAdminLoggedIn()) {
