@@ -432,8 +432,6 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Add this to your existing styles.css file */
-
 .apply-link, #previewJobApply, .button-group button {
     background: #000;
     border: none;
@@ -503,4 +501,9 @@ h2 {
     margin-top: 50px;
 }
 
-/* ... rest of your existing styles ... */
+/* Admin Dashboard Styles */
+.admin-dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
