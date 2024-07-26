@@ -4,50 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - ArchFlair</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>ArchFlair Admin Dashboard</h1>
         <nav>
             <a href="index.html" class="nav-button">Back to Jobs</a>
-            <button id="logoutButton" class="nav-button">Logout</button>
         </nav>
     </header>
 
     <main id="mainContent" role="main">
         <h2>Pending Job Approvals</h2>
         <div id="pendingJobs"></div>
-        
-        <h2>All Job Listings</h2>
-        <div id="allJobs"></div>
     </main>
-
-    <div id="editJobModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Edit Job</h2>
-            <form id="editJobForm">
-                <input type="text" id="editJobTitle" placeholder="Job Title" required>
-                <input type="text" id="editCompany" placeholder="Company" required>
-                <input type="text" id="editLocation" placeholder="Location" required>
-                <select id="editJobType" required>
-                    <option value="">Select Job Type</option>
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Internship">Internship</option>
-                </select>
-                <input type="text" id="editKeySkills" placeholder="Key Skills" required>
-                <textarea id="editDescription" placeholder="Job Description" required></textarea>
-                <input type="text" id="editSalary" placeholder="Salary (optional)">
-                <input type="email" id="editEmail" placeholder="Contact Email" required>
-                <input type="url" id="editWebsite" placeholder="Company Website (optional)">
-                <input type="url" id="editExternalLink" placeholder="Application URL (optional)">
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
-    </div>
 
     <footer>
         <div class="container">
@@ -55,6 +25,6 @@
         </div>
     </footer>
 
-    <script src="js/admin-dashboard.js"></script>
+    <script src="admin-dashboard.js"></script>
 </body>
 </html>
