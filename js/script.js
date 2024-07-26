@@ -6,7 +6,7 @@ const jobsPerLoad = 9;
 let loading = false;
 
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTm_NI5Z0YPF0r7XiT7tXcO85bugwhKjabY0aibP-ghd-BKGRltgAAR3iQBseAWO0ZWw/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSmZAJ7ZvW6uHUYuBwA-1hdhnJKxlObtDtK6emSIYi7Q7b27bYs35T88b5C9DcnGzuUQ/exec';
 
 // Wait for the DOM to be fully loaded before executing any scripts
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,29 +18,34 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadJobs() {
   try {
     console.log('Attempting to fetch jobs...');
-    const response = await fetch(`${SCRIPT_URL}?action=getJobListings`);
+    const response = await fetch(`${SCRIPT_URL}?action=getJobListings&origin=${encodeURIComponent(window.location.origin)}`);
     console.log('Fetch response:', response);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const jobs = await response.json();
-    console.log('Parsed jobs:', jobs);
+    const result = await response.json();
+    console.log('Parsed result:', result);
+    
+    if (result.status === 'success') {
+      allJobs = result.data;
+      console.log('Fetched jobs:', allJobs);
+      
+      // Initialize fuzzy search
+      fuse = new Fuse(allJobs, {
+        keys: ['Title', 'Company', 'Type', 'Location'],
+        threshold: 0.3,
+      });
 
-    allJobs = jobs;
+      // Render initial set of jobs
+      renderJobs(allJobs.slice(0, jobsPerLoad));
 
-    // Initialize fuzzy search
-    fuse = new Fuse(allJobs, {
-      keys: ['Title', 'Company', 'Type', 'Location'],
-      threshold: 0.3,
-    });
-
-    // Render initial set of jobs
-    renderJobs(allJobs.slice(0, jobsPerLoad));
-
-    // Set up infinite scroll after initial render
-    setupInfiniteScroll();
+      // Set up infinite scroll after initial render
+      setupInfiniteScroll();
+    } else {
+      throw new Error(result.message || 'Failed to fetch jobs');
+    }
   } catch (error) {
     console.error('Error loading jobs:', error);
     showErrorMessage(`Unable to load jobs. Error: ${error.message}`);

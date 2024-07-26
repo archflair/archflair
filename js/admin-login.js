@@ -1,4 +1,4 @@
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTm_NI5Z0YPF0r7XiT7tXcO85bugwhKjabY0aibP-ghd-BKGRltgAAR3iQBseAWO0ZWw/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSmZAJ7ZvW6uHUYuBwA-1hdhnJKxlObtDtK6emSIYi7Q7b27bYs35T88b5C9DcnGzuUQ/exec';
 
 document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -7,7 +7,7 @@ document.getElementById('adminLoginForm').addEventListener('submit', function(e)
 
     console.log('Attempting to login with:', email);
 
-    fetch(`${SCRIPT_URL}?action=adminLogin`, {
+    fetch(`${SCRIPT_URL}?action=adminLogin&origin=${encodeURIComponent(window.location.origin)}`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
