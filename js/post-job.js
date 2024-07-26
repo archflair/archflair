@@ -1,5 +1,5 @@
 // Ensure this matches the URL in your main script.js file
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzB5MoiHPmSOzE1LUurwuUAUUivKhtuUFPMGJ9oN9fhMEpyZp6Xhvjwrg1trDHnyNkY-Q/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCYCehIJCr3EZCW40zRgegzHsim2jj1nP4CcjeA2CnG9SK_MNGQKBqBfvBz_OTW6z56Q/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('jobPostForm');

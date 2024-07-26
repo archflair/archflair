@@ -6,7 +6,7 @@ const jobsPerLoad = 9;
 let loading = false;
 
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzB5MoiHPmSOzE1LUurwuUAUUivKhtuUFPMGJ9oN9fhMEpyZp6Xhvjwrg1trDHnyNkY-Q/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCYCehIJCr3EZCW40zRgegzHsim2jj1nP4CcjeA2CnG9SK_MNGQKBqBfvBz_OTW6z56Q/exec';
 
 // Wait for the DOM to be fully loaded before executing any scripts
 document.addEventListener('DOMContentLoaded', () => {
