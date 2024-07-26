@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>ArchFlair Admin Dashboard</h1>
+        <h1>ArchFlair</h1>
         <nav>
             <a href="index.html" class="nav-button">Back to Jobs</a>
             <button id="logoutButton" class="nav-button">Logout</button>
@@ -16,11 +16,13 @@
     </header>
 
     <main id="mainContent" role="main">
-        <h2>Pending Job Approvals</h2>
-        <div id="pendingJobs"></div>
-        
-        <h2>All Job Listings</h2>
-        <div id="allJobs"></div>
+        <div class="admin-dashboard-container">
+            <h2>Pending Job Approvals</h2>
+            <div id="pendingJobs"></div>
+            
+            <h2>All Job Listings</h2>
+            <div id="allJobs"></div>
+        </div>
     </main>
 
     <div id="editJobModal" class="modal">
@@ -44,7 +46,7 @@
                 <input type="email" id="editEmail" placeholder="Contact Email" required>
                 <input type="url" id="editWebsite" placeholder="Company Website (optional)">
                 <input type="url" id="editExternalLink" placeholder="Application URL (optional)">
-                <button type="submit">Save Changes</button>
+                <button type="submit" class="submit-button">Save Changes</button>
             </form>
         </div>
     </div>

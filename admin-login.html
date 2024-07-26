@@ -8,15 +8,27 @@
 </head>
 <body>
     <header>
-        <h1>ArchFlair Admin Login</h1>
+        <h1>ArchFlair</h1>
+        <nav>
+            <a href="index.html" class="nav-button">Back to Jobs</a>
+        </nav>
     </header>
 
     <main id="mainContent" role="main">
-        <form id="adminLoginForm">
-            <input type="email" id="adminEmail" placeholder="Email" required>
-            <input type="password" id="adminPassword" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+        <div class="admin-login-container">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+        </div>
     </main>
 
     <footer>
