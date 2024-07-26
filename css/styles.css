@@ -507,3 +507,37 @@ h2 {
     margin: 0 auto;
     padding: 20px;
 }
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.job-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.job-card p {
+    margin: 5px 0;
+}
+
+.job-card button {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.job-card button:hover {
+    background-color: #333;
+}
