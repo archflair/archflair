@@ -1,5 +1,6 @@
 // Ensure this matches the URL in your main script.js file
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAhJ7E4hL98JRXLFzb0JC7E8e3oDmS3XADSknoR43lEpxA3DkuFGgMsSlb3XM1cf_7Tg/exec';
+const BUY_ME_A_COFFEE_URL = 'https://www.buymeacoffee.com/archflair/e/282884';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('jobPostForm');
@@ -21,7 +22,6 @@ function handleJobSubmission(event) {
   const jobData = getJobDataFromForm();
   
   console.log('Sending job data:', jobData);
-
   const params = new URLSearchParams();
   params.append('action', 'addJob');
   params.append('jobData', JSON.stringify(jobData));
@@ -33,8 +33,8 @@ function handleJobSubmission(event) {
   })
   .then(response => {
     console.log('Job submission response received');
-    alert('Job posted successfully! Please check your email for verification instructions.');
-    document.getElementById('jobPostForm').reset();
+    // Redirect to Buy Me a Coffee checkout
+    window.location.href = BUY_ME_A_COFFEE_URL;
   })
   .catch(error => {
     console.error('Error:', error);
