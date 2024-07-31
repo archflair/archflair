@@ -1,5 +1,5 @@
 // Ensure this matches the URL in your main script.js file
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJZ-aVMHP0rcITu_BcIU4_d3ipo8gTKHdA2oNbu5MKf4VCSijPkrzXt3cTHZQ9uFvqtA/exec';
 const BUY_ME_A_COFFEE_LINK = 'https://buymeacoffee.com/archflair/e/282884';
 
 document.addEventListener('DOMContentLoaded', () => {
