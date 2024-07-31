@@ -1,5 +1,5 @@
 // Ensure this matches the URL in your main script.js file
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxNlgTN3cxy8FYkk5HTdvefEM8g3DfhWnXMLAG6iTL-ZPI6k1UdLyU_A2Lv4W6vANjs1Q/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('jobPostForm');
@@ -16,29 +16,47 @@ function previewJob(event) {
   showJobPreview(jobData);
 }
 
-function handleJobSubmission(event) {
+async function handleJobSubmission(event) {
   event.preventDefault();
   const jobData = getJobDataFromForm();
   
-  console.log('Sending job data:', jobData);
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=addJob`, {
+      method: 'POST',
+      body: new URLSearchParams({jobData: JSON.stringify(jobData)}),
+    });
+    const data = await response.json();
+    
+    if (data.status === 'success') {
+      showJobSummary(jobData, data.jobId);
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    alert(`Error: ${error.message}`);
+  }
+}
 
-  const params = new URLSearchParams();
-  params.append('action', 'addJob');
-  params.append('jobData', JSON.stringify(jobData));
+function showJobSummary(jobData, jobId) {
+  const form = document.getElementById('jobPostForm');
+  form.style.display = 'none';
 
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: params,
-    mode: 'no-cors'
-  })
-  .then(response => {
-    console.log('Job submission response received');
-    alert('Job posted successfully! Please check your email for verification instructions.');
-    document.getElementById('jobPostForm').reset();
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('An error occurred while posting the job. Please try again. If the problem persists, contact support.');
+  const summary = document.createElement('div');
+  summary.id = 'jobSummary';
+  summary.innerHTML = `
+    <h2>Job Posting Summary</h2>
+    <p><strong>Title:</strong> ${jobData.title}</p>
+    <p><strong>Company:</strong> ${jobData.company}</p>
+    <p><strong>Location:</strong> ${jobData.location}</p>
+    <p><strong>Type:</strong> ${jobData.type}</p>
+    <button id="proceedToPayment">Proceed to Payment</button>
+  `;
+  
+  form.parentNode.insertBefore(summary, form.nextSibling);
+  
+  document.getElementById('proceedToPayment').addEventListener('click', () => {
+    // Replace with your actual Buy Me a Coffee checkout link
+    window.location.href = `https://www.buymeacoffee.com/archflair/e/282884';
   });
 }
 

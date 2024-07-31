@@ -1,5 +1,5 @@
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxNlgTN3cxy8FYkk5HTdvefEM8g3DfhWnXMLAG6iTL-ZPI6k1UdLyU_A2Lv4W6vANjs1Q/exec';
 
 document.addEventListener('DOMContentLoaded', loadPendingJobs);
 
