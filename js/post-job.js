@@ -1,5 +1,5 @@
 // Ensure this matches the URL in your main script.js file
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFJpHlp9B0LaaUcDfkFqEDsRcb6W-f2oJigWSSmrp_AY5SP6WcyYM3d1VyLQF43nd4dg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmrBpZ0dkHIUGRdRyFkvVawtUjmDrCr-HKa3TEPNVl_gJvzixCxRGAo5_LyfJMLyvmTg/exec';
 const BUY_ME_A_COFFEE_URL = 'https://www.buymeacoffee.com/archflair/e/282884';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,34 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', handleJobSubmission);
 });
 
-function previewJob(event) {
-  event.preventDefault();
-  const jobData = getJobDataFromForm();
-  showJobPreview(jobData);
-}
-
 function handleJobSubmission(event) {
   event.preventDefault();
   const jobData = getJobDataFromForm();
   
-  console.log('Sending job data:', jobData);
-  const params = new URLSearchParams();
-  params.append('action', 'addJob');
-  params.append('jobData', JSON.stringify(jobData));
-
-  fetch(SCRIPT_URL, {
+  fetch(`${SCRIPT_URL}?action=addJob`, {
     method: 'POST',
-    body: params,
-    mode: 'no-cors'
+    body: JSON.stringify({jobData: jobData}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
-  .then(response => {
-    console.log('Job submission response received');
-    // Redirect to Buy Me a Coffee checkout
-    window.location.href = BUY_ME_A_COFFEE_URL;
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === "success") {
+      alert('Job posted successfully! Please proceed to payment.');
+      // Redirect to Buy Me a Coffee with job ID
+      const buyMeACoffeeURL = `${BUY_ME_A_COFFEE_URL}&custom_fields[Job ID]=${data.jobId}`;
+      window.location.href = buyMeACoffeeURL;
+    } else {
+      throw new Error(data.message || 'An error occurred');
+    }
   })
   .catch(error => {
     console.error('Error:', error);
-    alert('An error occurred while posting the job. Please try again. If the problem persists, contact support.');
+    alert('An error occurred while posting the job. Please try again.');
   });
 }
 

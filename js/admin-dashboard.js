@@ -1,29 +1,36 @@
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFJpHlp9B0LaaUcDfkFqEDsRcb6W-f2oJigWSSmrp_AY5SP6WcyYM3d1VyLQF43nd4dg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmrBpZ0dkHIUGRdRyFkvVawtUjmDrCr-HKa3TEPNVl_gJvzixCxRGAo5_LyfJMLyvmTg/exec';
 
 document.addEventListener('DOMContentLoaded', loadPendingJobs);
 
 function loadPendingJobs() {
     fetch(`${SCRIPT_URL}?action=getPendingJobs`)
         .then(response => response.json())
-        .then(jobs => {
-            const pendingJobsDiv = document.getElementById('pendingJobs');
-            pendingJobsDiv.innerHTML = jobs.map(job => `
-                <div class="job-card">
-                    <h3>${job.Title} at ${job.Company}</h3>
-                    <p><strong>Type:</strong> ${job.Type}</p>
-                    <p><strong>Location:</strong> ${job.Location}</p>
-                    <p><strong>Key Skills:</strong> ${job['Key Skills']}</p>
-                    <p><strong>Description:</strong> ${job.Description}</p>
-                    <p><strong>Salary:</strong> ${job.Salary || 'Not specified'}</p>
-                    <p><strong>Website:</strong> <a href="${job.Website}" target="_blank">${job.Website}</a></p>
-                    <p><strong>Email:</strong> <a href="mailto:${job.Email}">${job.Email}</a></p>
-                    <button onclick="approveJob('${job['Unique ID']}', true)">Approve</button>
-                    <button onclick="approveJob('${job['Unique ID']}', false)">Reject</button>
-                </div>
-            `).join('');
+        .then(result => {
+            if (result.status === 'success') {
+                const pendingJobsDiv = document.getElementById('pendingJobs');
+                if (result.data.length === 0) {
+                    pendingJobsDiv.innerHTML = '<p>No pending jobs to approve.</p>';
+                } else {
+                    pendingJobsDiv.innerHTML = result.data.map(job => `
+                        <div class="job-card">
+                            <h3>${job.Title} at ${job.Company}</h3>
+                            <p>Location: ${job.Location}</p>
+                            <p>Type: ${job.Type}</p>
+                            <p>Payment Status: ${job['Payment Status']}</p>
+                            <button onclick="approveJob('${job['Unique ID']}', true)">Approve</button>
+                            <button onclick="approveJob('${job['Unique ID']}', false)">Reject</button>
+                        </div>
+                    `).join('');
+                }
+            } else {
+                throw new Error(result.message || 'Failed to load pending jobs');
+            }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('pendingJobs').innerHTML = '<p>Error loading pending jobs. Please try again.</p>';
+        });
 }
 
 function approveJob(jobId, approved) {
