@@ -210,66 +210,6 @@ function loadMoreJobs() {
   }, 500); // Simulating network delay
 }
 
-// Set up user info capture functionality
-function setupUserInfoCapture() {
-  const button = document.getElementById('openUserInfo');
-  const form = document.querySelector('.user-info-form');
-  if (!button || !form) return;
-
-  const inputs = form.querySelectorAll('input');
-  const typeButtons = form.querySelectorAll('.type-button');
-  let userType = '';
-
-  button.addEventListener('click', (e) => {
-    e.stopPropagation();
-    form.classList.toggle('active');
-    if (form.classList.contains('active') && inputs.length > 0) {
-      inputs[0].focus();
-    }
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!form.contains(e.target) && e.target !== button) {
-      form.classList.remove('active');
-    }
-  });
-
-  inputs.forEach(input => {
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitUserInfo();
-      }
-    });
-  });
-
-  typeButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      typeButtons.forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      userType = e.target.dataset.type;
-      if (inputs.length > 0) {
-        inputs[inputs.length - 1].focus();
-      }
-    });
-  });
-
-  function submitUserInfo() {
-    const name = document.getElementById('userName')?.value;
-    const email = document.getElementById('userEmail')?.value;
-
-    if (name && email && userType) {
-      console.log('User info:', { name, email, type: userType });
-      alert(`Thanks, ${name}! We'll be in touch about ${userType} opportunities.`);
-      form.classList.remove('active');
-      inputs.forEach(input => input.value = '');
-      typeButtons.forEach(btn => btn.classList.remove('active'));
-      userType = '';
-    } else {
-      alert('Please fill in all fields.');
-    }
-  }
-}
 
 // Show error message
 function showErrorMessage(message) {

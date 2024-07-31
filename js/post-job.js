@@ -35,7 +35,7 @@ function handleJobSubmission(event) {
   .then(response => {
     console.log('Job submission response received');
     localStorage.setItem('pendingJobData', JSON.stringify(jobData));
-    window.location.href = https://buymeacoffee.com/archflair/e/282884;
+    window.location.href = BUY_ME_A_COFFEE_LINK;
   })
   .catch(error => {
     console.error('Error:', error);
