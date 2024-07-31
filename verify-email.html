@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - ArchFlair</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>ArchFlair</h1>
+    </header>
+
+    <main id="mainContent" role="main">
+        <div class="verification-message">
+            <h2>Email Verification</h2>
+            <p id="verificationStatus">Verifying your email...</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            © 2024 ArchFlair. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            if (token) {
+                verifyEmail(token);
+            } else {
+                document.getElementById('verificationStatus').textContent = 'Invalid verification link.';
+            }
+        });
+
+        function verifyEmail(token) {
+            fetch(`YOUR_GOOGLE_APPS_SCRIPT_URL?action=verifyEmail&token=${token}`)
+                .then(response => response.text())
+                .then(message => {
+                    document.getElementById('verificationStatus').textContent = message;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('verificationStatus').textContent = 'An error occurred during verification. Please try again.';
+                });
+        }
+    </script>
+</body>
+</html>

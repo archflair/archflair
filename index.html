@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchFlair: Architecture Jobs Board</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>ArchFlair</h1>
+        <nav>
+            <a href="post-job.html" class="nav-button">Post a Job</a>
+        </nav>
+    </header>
+
+    <main id="mainContent" role="main">
+        <section id="homepage" class="section">
+            <h2>Find your next architectural internship or job</h2>
+            
+            <input type="text" id="searchBar" placeholder="Search for jobs by title, company, or location...">
+
+            <section id="featuredJobs">
+                <h3>Featured Jobs</h3>
+                <table id="jobList">
+                    <thead>
+                        <tr>
+                            <th>Position Title</th>
+                            <th>Company Name</th>
+                            <th>Job Type</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Job listings will be inserted here -->
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <div id="loadingIndicator" class="loading-indicator">
+            Loading more opportunities...
+        </div>
+    </main>
+
+    <div id="jobDetailPopup" class="job-detail-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeJobDetailPopup()">&times;</span>
+            <h2 id="jobTitle"></h2>
+            <p><strong>Job Type</strong> <span id="jobType"></span></p>
+            <p><strong>Location</strong> <span id="jobLocation"></span></p>
+            <p><strong>Key Skills</strong> <span id="jobKeySkills"></span></p>
+            <p><strong>Description</strong> <span id="jobDescription"></span></p>
+            <p><strong>Website</strong> <a id="jobWebsite" target="_blank"></a></p>
+            <p><strong>Email</strong> <a id="jobEmail"></a></p>
+            <p><strong>Salary</strong> <span id="jobSalary"></span></p>
+            <a id="jobApply" class="apply-link" target="_blank">Apply</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            © 2024 ArchFlair. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
