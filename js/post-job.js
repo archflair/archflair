@@ -1,5 +1,5 @@
 // Ensure this matches the URL of your Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykkRwWa2RjJbGe5t7N-yyzL52pV7WEzH9hCktyULLljMvqQdcxrZkUdUj0vRvlJcYgLQ/exec';
 
 // Replace with your actual Gumroad product link
 const GUMROAD_LINK = 'https://archflair.gumroad.com/l/henql';
@@ -174,13 +174,24 @@ function handleProceedToPayment(event) {
 
     const gumroadLink = `${GUMROAD_LINK}?wanted=true&jobId=${currentJobId}`;
     
-    // Use Gumroad.createOverlay to open the Gumroad checkout
+    // Attempt to open Gumroad overlay
     if (typeof Gumroad !== 'undefined') {
         Gumroad.createOverlay(gumroadLink);
+        
+        // Check if overlay opened successfully
+        setTimeout(() => {
+            if (!document.querySelector('.gumroad-overlay')) {
+                showFallbackMessage(gumroadLink);
+            }
+        }, 1000);
     } else {
-        // Fallback to opening in a new tab if Gumroad script is not loaded
-        window.open(gumroadLink, '_blank');
+        showFallbackMessage(gumroadLink);
     }
+}
+
+function showFallbackMessage(paymentLink) {
+    alert(`Unable to open the payment page. Please click OK to be redirected to the payment page manually.`);
+    window.open(paymentLink, '_blank');
 }
 
 function closeJobPreview() {
@@ -211,9 +222,9 @@ function handleGumroadSuccess(data) {
     
     // Update payment status in the backend
     const params = new URLSearchParams();
-    params.append('action', 'updatePaymentStatus');
-    params.append('jobId', jobId);
-    params.append('paymentStatus', 'Paid');
+   params.append('action', 'updatePaymentStatus');
+   params.append('jobId', jobId);
+   params.append('paymentStatus', 'Paid');
 
     fetch(SCRIPT_URL, {
         method: 'POST',
