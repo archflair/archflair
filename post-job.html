@@ -6,7 +6,6 @@
     <title>ArchFlair - Post a Job</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://gumroad.com/js/gumroad.js"></script>
-
 </head>
 <body>
     <header>
@@ -41,16 +40,11 @@
                 <div class="form-group">
                     <label>4. What type of employment is this?</label>
                     <div class="radio-group">
-                        <input type="radio" id="fullTime" name="jobType" value="Full-time" required>
-                        <label for="fullTime">Full-time</label>
-                        <input type="radio" id="partTime" name="jobType" value="Part-time">
-                        <label for="partTime">Part-time</label>
-                        <input type="radio" id="contract" name="jobType" value="Contract">
-                        <label for="contract">Contract</label>
-                        <input type="radio" id="internship" name="jobType" value="Internship">
-                        <label for="internship">Internship</label>
-                        <input type="radio" id="freelance" name="jobType" value="Freelance">
-                        <label for="freelance">Freelance</label>
+                        <label><input type="radio" name="jobType" value="Full-time" required> Full-time</label>
+                        <label><input type="radio" name="jobType" value="Part-time"> Part-time</label>
+                        <label><input type="radio" name="jobType" value="Contract"> Contract</label>
+                        <label><input type="radio" name="jobType" value="Internship"> Internship</label>
+                        <label><input type="radio" name="jobType" value="Freelance"> Freelance</label>
                     </div>
                 </div>
 
@@ -107,7 +101,7 @@
             <p><strong>Key Skills:</strong> <span id="previewJobSkills"></span></p>
             <p><strong>Description:</strong> <span id="previewJobDescription"></span></p>
             <p><strong>Website:</strong> <a id="previewJobWebsite" target="_blank"></a></p>
-            <p><strong>Email:</strong> <a id="previewJobEmail"></a></p>
+            <p><strong>Email:</strong> <span id="previewJobEmail"></span></p>
             <p><strong>Salary:</strong> <span id="previewJobSalary"></span></p>
             <a id="previewJobApply" class="apply-link" target="_blank">Apply</a>
         </div>
@@ -115,9 +109,10 @@
 
     <div id="confirmationPopup" class="job-detail-popup">
         <div class="popup-content">
+            <span class="close">&times;</span>
             <h2>Job Posting Submitted</h2>
             <p>Your job posting has been successfully submitted. To complete the process, please proceed to payment.</p>
-            <a href="#" id="proceedToPaymentBtn" class="gumroad-button">Proceed to Payment</a>
+            <a class="gumroad-button" href="https://archflair.gumroad.com/l/henql" data-gumroad-overlay-checkout="true">Proceed to Payment</a>
         </div>
     </div>
 

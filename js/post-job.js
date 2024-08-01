@@ -14,15 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     previewBtn.addEventListener('click', previewJob);
     form.addEventListener('submit', handleJobSubmission);
 
-    // Set up Gumroad overlay callback
-    if (typeof Gumroad !== 'undefined') {
-        Gumroad.setConfig({
-            success_callback: handleGumroadSuccess
-        });
-    } else {
-        console.error('Gumroad script not loaded properly');
-    }
-
     // Setup close buttons for popups
     const closePreviewBtn = document.querySelector('#jobPreviewPopup .close');
     if (closePreviewBtn) {
@@ -32,6 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeConfirmationBtn = document.querySelector('#confirmationPopup .close');
     if (closeConfirmationBtn) {
         closeConfirmationBtn.addEventListener('click', closeConfirmationPopup);
+    }
+
+    // Set up Gumroad success callback
+    if (typeof Gumroad !== 'undefined') {
+        Gumroad.setConfig({
+            success_callback: handleGumroadSuccess
+        });
+    } else {
+        console.error('Gumroad script not loaded properly');
     }
 });
 
@@ -160,19 +160,12 @@ function showConfirmationPopup(jobId) {
     const confirmationPopup = document.getElementById('confirmationPopup');
     confirmationPopup.style.display = 'flex';
 
-    const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
-    const gumroadLink = `${GUMROAD_LINK}?wanted=true&jobId=${jobId}`;
-    
-    proceedToPaymentBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        confirmationPopup.style.display = 'none';
-        
-        // Use Gumroad.createOverlay to open the Gumroad checkout
-        Gumroad.createOverlay(gumroadLink);
-    });
-
-    // Update the href attribute (as a fallback)
-    proceedToPaymentBtn.href = gumroadLink;
+    const gumroadButton = confirmationPopup.querySelector('.gumroad-button');
+    if (gumroadButton) {
+        let currentHref = gumroadButton.getAttribute('href');
+        // Append the jobId as a query parameter
+        gumroadButton.setAttribute('href', `${currentHref}?wanted=true&jobId=${jobId}`);
+    }
 }
 
 function closeJobPreview() {
@@ -193,7 +186,7 @@ function handleGumroadSuccess(data) {
     console.log('Gumroad payment successful:', data);
     
     // Extract jobId from the data if available, or use the stored currentJobId
-    const jobId = data.jobId || currentJobId;
+    const jobId = new URLSearchParams(data.url.split('?')[1]).get('jobId') || currentJobId;
     
     if (!jobId) {
         console.error('No job ID available');
@@ -216,6 +209,7 @@ function handleGumroadSuccess(data) {
         if (data.status === 'success') {
             alert('Thank you for your payment. Your job posting will be reviewed shortly.');
             document.getElementById('jobPostForm').reset();
+            closeConfirmationPopup();
         } else {
             alert('An error occurred while updating the payment status. Please contact support.');
         }
@@ -225,6 +219,3 @@ function handleGumroadSuccess(data) {
         alert('An error occurred while updating the payment status. Please contact support.');
     });
 }
-
-// Add this to your window object to make it accessible globally
-window.handleGumroadSuccess = handleGumroadSuccess;
