@@ -1,5 +1,5 @@
 // Ensure this matches the URL of your Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyUlKaWPfXi7lRBmQx8EYjkETc9JBtVA-zt5wbiuIrD9S5pmn3mmNhjyOSTEL-PbKtBQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOnvfT-JvxsM2NAHiXo761Ewg6gdjc1KKVMuQYNwUoS0RZMeY7JFH6JxdHDMY9VuIneA/exec';
 
 // Replace with your actual Gumroad product link
 const GUMROAD_LINK = 'https://archflair.gumroad.com/l/henql';
@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('jobPostForm');
     const previewBtn = document.getElementById('previewJobBtn');
     const submitBtn = document.getElementById('submitJobBtn');
+    const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
 
     previewBtn.addEventListener('click', previewJob);
     form.addEventListener('submit', handleJobSubmission);
+    proceedToPaymentBtn.addEventListener('click', handleProceedToPayment);
 
     // Setup close buttons for popups
     const closePreviewBtn = document.querySelector('#jobPreviewPopup .close');
@@ -159,12 +161,25 @@ function showJobPreview(jobData) {
 function showConfirmationPopup(jobId) {
     const confirmationPopup = document.getElementById('confirmationPopup');
     confirmationPopup.style.display = 'flex';
+    currentJobId = jobId; // Store the job ID for later use
+}
 
-    const gumroadButton = confirmationPopup.querySelector('.gumroad-button');
-    if (gumroadButton) {
-        let currentHref = gumroadButton.getAttribute('href');
-        // Append the jobId as a query parameter
-        gumroadButton.setAttribute('href', `${currentHref}?wanted=true&jobId=${jobId}`);
+function handleProceedToPayment(event) {
+    event.preventDefault();
+    if (!currentJobId) {
+        console.error('No job ID available');
+        alert('An error occurred. Please try submitting your job again.');
+        return;
+    }
+
+    const gumroadLink = `${GUMROAD_LINK}?wanted=true&jobId=${currentJobId}`;
+    
+    // Use Gumroad.createOverlay to open the Gumroad checkout
+    if (typeof Gumroad !== 'undefined') {
+        Gumroad.createOverlay(gumroadLink);
+    } else {
+        // Fallback to opening in a new tab if Gumroad script is not loaded
+        window.open(gumroadLink, '_blank');
     }
 }
 
@@ -219,3 +234,6 @@ function handleGumroadSuccess(data) {
         alert('An error occurred while updating the payment status. Please contact support.');
     });
 }
+
+// Add this to your window object to make it accessible globally
+window.handleGumroadSuccess = handleGumroadSuccess;
