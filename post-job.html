@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchFlair - Post a Job</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <h1>ArchFlair</h1>
+        <a href="index.html" class="nav-button">Back to Jobs</a>
+    </div>
+
+    <div id="mainContent" role="main">
+        <div class="post-job-container">
+            <h2>Post a Job</h2>
+            <form id="jobPostForm">
+                <div class="form-group">
+                    <label for="jobTitle">1. What is the job title?</label>
+                    <input type="text" id="jobTitle" name="jobTitle" required>
+                    <small>(Please specify a single position, e.g., "Senior Architect" or "Urban Designer")</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyName">2. What is the name of your company?</label>
+                    <input type="text" id="companyName" name="companyName" required>
+                    <small>(e.g., "XYZ Architects")</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobLocation">3. Where is the job located?</label>
+                    <input type="text" id="jobLocation" name="jobLocation" required>
+                    <small>(Specify city, e.g., "Mumbai", or write "Remote" if location-independent)</small>
+                </div>
+
+                <div class="form-group">
+                    <label>4. What type of employment is this?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="jobType" value="Full-time" required> Full-time</label>
+                        <label><input type="radio" name="jobType" value="Part-time"> Part-time</label>
+                        <label><input type="radio" name="jobType" value="Contract"> Contract</label>
+                        <label><input type="radio" name="jobType" value="Internship"> Internship</label>
+                        <label><input type="radio" name="jobType" value="Freelance"> Freelance</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="keySkills">5. What are the key skills or tools required for this role?</label>
+                    <input type="text" id="keySkills" name="keySkills" required>
+                    <small>(List up to 5 essential skills or tools, separated by commas. e.g., AutoCAD, Revit, SketchUp, Photoshop, Project Management)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobDescription">6. Can you provide a brief description of the job?</label>
+                    <textarea id="jobDescription" name="jobDescription" required></textarea>
+                    <small>(Write 1-2 sentences about the role and key responsibilities)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="salary">7. What is the monthly salary range for this position? (Optional)</label>
+                    <input type="text" id="salary" name="salary">
+                    <small>(Provide range in Indian Rupees, e.g., "₹50,000 - ₹70,000 per month")</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicationEmail">8. What is the application email address for this position?</label>
+                    <input type="email" id="applicationEmail" name="applicationEmail" required>
+                    <small>(This email will be public and used for applications)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicationUrl">9. What is the application URL for this position? (Optional)</label>
+                    <input type="url" id="applicationUrl" name="applicationUrl">
+                    <small>(e.g., https://yourcompany.com/apply or your preferred job application platform. If provided, this will be used instead of email for the apply button.)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyWebsite">10. What is your company's website? (Optional)</label>
+                    <input type="url" id="companyWebsite" name="companyWebsite">
+                    <small>(e.g., https://yourcompany.com)</small>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="previewJobBtn">Preview Job</button>
+                    <button type="submit" id="submitJobBtn">Post Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="jobPreviewPopup" class="job-detail-popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2 id="previewJobTitle"></h2>
+            <p><strong>Job Type:</strong> <span id="previewJobType"></span></p>
+            <p><strong>Location:</strong> <span id="previewJobLocation"></span></p>
+            <p><strong>Key Skills:</strong> <span id="previewJobSkills"></span></p>
+            <p><strong>Description:</strong> <span id="previewJobDescription"></span></p>
+            <p><strong>Website:</strong> <a id="previewJobWebsite" target="_blank"></a></p>
+            <p><strong>Email:</strong> <a id="previewJobEmail"></a></p>
+            <p><strong>Salary:</strong> <span id="previewJobSalary"></span></p>
+            <a id="previewJobApply" class="apply-link" target="_blank">Apply</a>
+        </div>
+    </div>
+
+    <div id="confirmationPopup" class="popup">
+        <div class="popup-content">
+            <h2>Job Posting Submitted</h2>
+            <p>Your job posting has been successfully submitted. A confirmation email has been sent to your provided email address with further instructions.</p>
+            <button id="closeConfirmationBtn">Close</button>
+        </div>
+    </div>
+
+    <div class="container">
+        © 2024 ArchFlair. All rights reserved.
+    </div>
+
+    <script src="js/post-job.js"></script>
+</body>
+</html>
