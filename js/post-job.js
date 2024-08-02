@@ -1,5 +1,5 @@
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLHDwt3OnrR4mW8GzibkymcraJQ9gI1MXPlfKVTt7fr-tI9u6rDShTCXrGtPc8bCmGXA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiy2uCQotDnGuEyjo_63zC1hnnfotRm2zG3El2_wj7iNaFRfTYqRhyTK8yyyoz0iOHXA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded');
