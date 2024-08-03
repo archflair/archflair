@@ -1,5 +1,5 @@
 // Replace with your Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwou-BRDnseVI0jYKZyEltf5bU-G89xyvOpCwIkgqMCWOQ4h-9JyoYHZD9eBpR-d9QpQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwwt0exHES_Cn5Hr2QlhSD07ey1DBJiYvgVvne2ybmeVKFF0tjnHWgN-eGDG8c6BAoMA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded');
@@ -46,12 +46,22 @@ function handleJobSubmission(event) {
   fetch(SCRIPT_URL, {
     method: 'POST',
     body: params,
-    mode: 'no-cors'
+    // Remove the 'mode: no-cors' setting
   })
   .then(response => {
-    console.log('Job submission response received');
-    alert('Job posted successfully! Please check your email for payment instructions.');
-    document.getElementById('jobPostForm').reset();
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Job submission response:', data);
+    if (data.status === 'success') {
+      alert(`Job posted successfully! Job ID: ${data.jobId}. An email has been sent to ${data.email} with payment instructions.`);
+      document.getElementById('jobPostForm').reset();
+    } else {
+      throw new Error(data.message || 'Unknown error occurred');
+    }
   })
   .catch(error => {
     console.error('Error:', error);
